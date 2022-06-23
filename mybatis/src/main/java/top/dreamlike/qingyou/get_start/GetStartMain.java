@@ -1,4 +1,4 @@
-package top.dreamlike.qingyou;
+package top.dreamlike.qingyou.get_start;
 
 import com.mysql.cj.jdbc.Driver;
 import org.apache.ibatis.datasource.pooled.PooledDataSource;
@@ -14,9 +14,9 @@ import org.apache.ibatis.transaction.jdbc.JdbcTransactionFactory;
 import java.io.IOException;
 import java.io.InputStream;
 
-public class GetStart {
+public class GetStartMain {
     public static void main(String[] args) throws IOException {
-        SqlSessionFactory factory = buildFromXml();
+        SqlSessionFactory factory = buildFromJava();
         try (SqlSession session = factory.openSession()) {
             UserMapper mapper = session.getMapper(UserMapper.class);
             System.out.println(mapper.selectById(31));
@@ -25,7 +25,7 @@ public class GetStart {
     }
 
     public static SqlSessionFactory buildFromXml() throws IOException {
-        InputStream inputStream = Resources.getResourceAsStream("mybatis-config.xml");
+        InputStream inputStream = Resources.getResourceAsStream("mybatis-config-get-start.xml");
         return new SqlSessionFactoryBuilder()
                 .build(inputStream);
     }

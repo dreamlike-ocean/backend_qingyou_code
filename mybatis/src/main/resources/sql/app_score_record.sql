@@ -4,7 +4,7 @@ create table score_record
         primary key,
     user_id   int        not null,
     count     int        null,
-    timestamp mediumtext not null,
+    timestamp bigint not null,
     type      int        null
 );
 

@@ -1,4 +1,4 @@
-package top.dreamlike.qingyou;
+package top.dreamlike.qingyou.entity;
 
 import java.io.Serializable;
 import java.util.StringJoiner;

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<!--dtd是xml的约束文件，可以不写，写上了idea可以帮你做自动提示-->
+<configuration>
+    <settings>
+        <setting name="mapUnderscoreToCamelCase" value="value"/>
+    </settings>
+    <!--    默认使用哪个配置-->
+    <environments default="development">
+        <environment id="development">
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+                <!--                jdbc驱动的全限定名-->
+                <property name="driver" value="com.mysql.cj.jdbc.Driver"/>
+                <!--                基础的url格式为jdbc:{子协议名}://{ip}:{端口}/{表名}-->
+                <property name="url" value="jdbc:mysql://localhost:3306/app"/>
+                <property name="username" value="root"/>
+                <property name="password" value="12345678"/>
+            </dataSource>
+        </environment>
+    </environments>
+    <mappers>
+        <mapper resource="top/dreamlike/qingyou/select/UserMapper.xml"/>
+    </mappers>
+</configuration>

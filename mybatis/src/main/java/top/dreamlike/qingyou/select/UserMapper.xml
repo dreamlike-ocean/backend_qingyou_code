@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 对应接口的全限定名-->
+<mapper namespace="top.dreamlike.qingyou.select.UserMapper">
+    <resultMap id="UserResultMap" type="top.dreamlike.qingyou.entity.LoginUser" autoMapping="true">
+        <id property="userId" column="user_id"></id>
+    </resultMap>
+
+    <resultMap id="ScoreRecordResultMap" type="top.dreamlike.qingyou.entity.ScoreRecord" autoMapping="true">
+        <id property="recordId" column="record_id"></id>
+        <result property="userId" column="user_id"></result>
+    </resultMap>
+
+    <resultMap id="UserScoreRecordResultMap" type="top.dreamlike.qingyou.select.UserScoreRecord" autoMapping="true">
+        <constructor>
+            <idArg column="user_id" javaType="Integer" ></idArg>
+        </constructor>
+        <collection property="scoreRecords" resultMap="ScoreRecordResultMap"></collection>
+    </resultMap>
+    <select id="selectById" resultType="top.dreamlike.qingyou.entity.LoginUser">
+        select *
+        from login_user
+        where user_id = #{userId}
+    </select>
+    <!--    HashMap<String,Object> selectByIdtToMap(@Param("userId") Integer userId);-->
+    <select id="selectByIdtToMap" resultType="java.util.HashMap">
+        select *
+        from login_user
+        where user_id = #{userId}
+    </select>
+    <!--LoginUser selectByIdUseResultMap(@Param("userId") Integer userId); -->
+    <select id="selectByIdUseResultMap" resultMap="UserResultMap">
+        select *
+        from login_user
+        where user_id = #{userId}
+    </select>
+    <!-- UserScoreRecord selectUserScoreRecordById(@Param("userId") Integer userId); -->
+    <select id="selectUserScoreRecordById" resultMap="UserScoreRecordResultMap">
+        select user_id,sr.* from login_user
+        join score_record sr using(user_id)
+        where user_id = #{userId}
+    </select>
+<resultMap id="UserMap" type="top.dreamlike.qingyou.select.User">
+    <constructor>
+        <idArg column="user_id" name="userId"/>
+        <arg column="password" name="password"/>
+        <arg column="username" name="username"/>
+    </constructor>
+</resultMap>
+    <select id="selectUserById" resultMap="UserMap">
+        select *
+        from login_user
+        where user_id = #{userId}
+    </select>
+
+<resultMap id="ScoreRecordUserInfoMap" type="top.dreamlike.qingyou.select.ScoreRecordUserInfo" autoMapping="true">
+    <id column="record_id" property="recordId"></id>
+    <association property="loginUser" resultMap="UserResultMap"></association>
+</resultMap>
+
+    <select id="selectScoreUserInfoById" resultMap="ScoreRecordUserInfoMap">
+        select record_id,timestamp,u.* from score_record
+        join login_user u using(user_id) limit 1
+    </select>
+</mapper>

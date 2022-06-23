@@ -19,6 +19,6 @@
         </environment>
     </environments>
     <mappers>
-        <mapper resource="top/dreamlike/qingyou/UserMapper.xml"/>
+        <mapper resource="top/dreamlike/qingyou/get_start/UserMapper.xml"/>
     </mappers>
 </configuration>
